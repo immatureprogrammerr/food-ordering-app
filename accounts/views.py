@@ -1,13 +1,30 @@
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from vendor.forms import VendorForm
 from .forms import UserForm
 from .models import User, UserProfile
-from django.contrib import messages
+from django.contrib import messages, auth
 
-# Create your views here.
+from .utils import detect_user
+from django.core.exceptions import PermissionDenied
+
+# Restrict the restaurant from accessing the customer page
+def check_role_restaurant(user):
+    if user.role == 1:
+        return True
+    raise PermissionDenied
+
+# Restrict the customer from accessing the vendor page
+def check_role_customer(user):
+    if user.role == 2:
+        return True
+    raise PermissionDenied
+
 def register_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
@@ -41,6 +58,8 @@ def register_user(request):
     return render(request, 'accounts/registeruser.html', context)
 
 def register_restaurant(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     if request.method == 'POST':
         #store the data and create the user
         form = UserForm(request.POST)
@@ -82,3 +101,44 @@ def register_restaurant(request):
         'vendor_form': vendor_form,
     }
     return render(request, 'accounts/registerrestaurant.html', context=context)
+
+def login(request):
+    if request.user.is_authenticated:
+        return redirect('myAccount')
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email=email, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You have logged-in successfully')
+            return redirect('myAccount')
+        else:
+            messages.error(request, 'Username/password incorrect!')
+            return redirect('login')
+    return render(request, 'accounts/login.html')
+
+def logout(request):
+    auth.logout(request)
+    messages.info(request, 'You are logged out')
+    return redirect('login')
+
+@login_required(login_url='login')
+@user_passes_test(check_role_customer)
+def customer_dashboard(request):
+    return render(request, 'accounts/customer_dashboard.html')
+
+@login_required(login_url='login')
+@user_passes_test(check_role_restaurant)
+def restaurant_dashboard(request):
+    return render(request, 'accounts/restaurant_dashboard.html')
+
+@login_required(login_url='login')
+def my_account(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    user = request.user
+    redirect_url = detect_user(user)
+    return redirect(redirect_url)
