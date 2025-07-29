@@ -513,14 +513,14 @@
 .user-dashboard-menu li .no-image-found { width: 35px; height: 35px; background-color: #ccc; border-radius: 50%; display: block; }
 /*user Dashboard Menu Style End*/
 /* User Nav List Styel */
-.user-nav-list { background-color: #fff; margin-bottom: 30px; }
+.user-nav-list { margin-bottom: 30px; border: 1px solid #fff; }
 .user-nav-list ul { padding: 0px; margin: 0px; }
 .user-nav-list ul li:first-child { border-top: none; }
 .user-nav-list ul li:last-child { padding-bottom: 17px; }
 .user-nav-list ul li a i { min-width: 14px; display: inline-block; margin-right: 10px; color: #b3b6c0; font-size: 14px; vertical-align: middle; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; line-height: 13px; }
 .user-nav-list ul li { list-style: none; padding: 15px 20px 12px 20px; margin: 0px; border-top: 1px solid #ebedf3; line-height: 1; -webkit-box-shadow: none; box-shadow: none; text-shadow: none; display: block; width: 100%; }
 .user-nav-list ul li.active a, .user-nav-list ul li.active i { color: #FF6500; }
-.user-nav-list ul li a { display: block; outline: none; text-decoration: none; text-shadow: none; -webkit-box-shadow: none; box-shadow: none; font-size: 12px; color: #2f313a; font-weight: 600; text-transform: uppercase; }
+.user-nav-list ul li a { display: block; outline: none; text-decoration: none; text-shadow: none; -webkit-box-shadow: none; box-shadow: none; font-size: 12px; color: #fff; font-weight: 600; text-transform: uppercase; }
 /* User Nav List Styel */
 /* User Dashboard Styel */
 .account-header { padding-top: 60px; margin-bottom: 30px; }
@@ -1547,14 +1547,14 @@ span.sticky-stop { position: relative; top: -49px; }
 .responsive-table:after { content: ''; clear: both; line-height: 0; display: table; }
 .table-generic { display: table; width: 100%; }
 .table-generic > li { display: table-row; }
-.table-generic > li > div { display: table-cell; padding: 18px 15px; text-transform: capitalize; border-top: 1px solid #eee; color: #484848; vertical-align: middle; line-height: normal; }
+.table-generic > li > div { display: table-cell; padding: 18px 15px; text-transform: capitalize; border-top: 1px solid #eee; color: #fff; vertical-align: middle; line-height: normal; }
 .table-generic > li > div a i { font-size: 20px; }
 .table-generic > li:first-child > div { padding: 14px 15px; color: #333; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
 #team-list-table .panel-heading li { margin-bottom: 0; }
 #team-list-table .table-generic > li:first-child > div > span { line-height: 15px; color: #333; letter-spacing: 2px; font-weight: 700; font-size: 11px; font-family: 'Open sans', sans-serif; text-transform: uppercase; }
-.table-generic > li:nth-child(odd) > div { background-color: #fafafa; }
-.table-generic > li:nth-child(even), .orders-list > li:nth-child(even) .info-holder { background-color: #fff; }
-.table-generic > li:nth-child(odd), .orders-list > li:nth-child(odd) .info-holder { background-color: #fafafa; }
+.table-generic > li:nth-child(odd) > div { color: #fafafa; }
+.table-generic > li:nth-child(even), .orders-list > li:nth-child(even) .info-holder { color: #fff; }
+.table-generic > li:nth-child(odd), .orders-list > li:nth-child(odd) .info-holder { color: #fafafa; }
 .table-generic > li > div span, .table-generic > li > div strong, .table-generic > li > div a { padding-bottom: 0; padding-top: 0; line-height: 22px; }
 .table-generic > li.read, .orders-list > li.read .info-holder { background-color: #fff; }
 .table-generic > li.unread, .orders-list > li.unread .info-holder { background-color: #FBFBEB; }

@@ -9,7 +9,7 @@ from django.conf import settings
 def detect_user(user):
     redirect_url = ''
     if user.role == 1:
-        redirect_url = 'restaurantDashboard'
+        redirect_url = '/accounts/restaurant/dashboard/'
     elif user.role == 2:
         redirect_url = 'customerDashboard'
     elif user.role is None and user.is_superadmin:
@@ -53,3 +53,11 @@ def send_reset_password_email(request, user):
     to_email = user.email
     mail = EmailMessage(mail_subject, message, to=[to_email], from_email=from_email)
     mail.send()
+
+def send_notification_email(mail_subject, mail_template, context):
+    from_email = settings.DEFAULT_EMAIL_FROM
+    message = render_to_string(mail_template, context)
+    to_email = context['user'].email
+    mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
+    mail.send()
+    return

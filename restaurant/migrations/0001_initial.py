@@ -16,11 +16,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Vendor',
+            name='Restaurant',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('vendor_name', models.CharField(max_length=50)),
-                ('vendor_license', models.ImageField(upload_to='vendor/license')),
+                ('restaurant_name', models.CharField(max_length=50)),
+                ('restaurant_license', models.ImageField(upload_to='restaurant/license')),
                 ('is_approved', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),

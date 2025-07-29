@@ -2100,7 +2100,7 @@ h6 { font-size: 14px; line-height: 18px; }
 /* Heading Typo End */
 [class*="col-lg"], [class*="col-md"], [class*="col-sm"] { display: inline-block; float: none; margin: 0 -4px 0 0; vertical-align: top; }
 a { text-decoration: none; color: #333; outline: none; -moz-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
-a:hover, a:focus { color: #000; outline: none; text-decoration: none; }
+a:hover, a:focus { color: #fff; outline: none; text-decoration: none; }
 p { line-height: 24px; margin: 0 0 10px; }
 figure { margin-bottom: 0; position: relative; }
 /* Blockquote typo */

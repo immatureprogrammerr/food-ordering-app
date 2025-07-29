@@ -4,13 +4,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.http import urlsafe_base64_decode
 
-from vendor.forms import VendorForm
+from restaurant.forms import RestaurantForm
 from .forms import UserForm
 from .models import User, UserProfile
 from django.contrib import messages, auth
 
 from .utils import detect_user, send_email
 from django.core.exceptions import PermissionDenied
+from restaurant.models import Restaurant
 
 # Restrict the restaurant from accessing the customer page
 def check_role_restaurant(user):
@@ -18,7 +19,7 @@ def check_role_restaurant(user):
         return True
     raise PermissionDenied
 
-# Restrict the customer from accessing the vendor page
+# Restrict the customer from accessing the restaurant page
 def check_role_customer(user):
     if user.role == 2:
         return True
@@ -67,9 +68,9 @@ def register_restaurant(request):
     if request.method == 'POST':
         #store the data and create the user
         form = UserForm(request.POST)
-        vendor_form = VendorForm(request.POST, request.FILES)
+        restaurant_form = RestaurantForm(request.POST, request.FILES)
 
-        if form.is_valid() and vendor_form.is_valid():
+        if form.is_valid() and restaurant_form.is_valid():
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             username = form.cleaned_data['username']
@@ -85,13 +86,13 @@ def register_restaurant(request):
             user.role = User.RESTAURANT
             user.save()
 
-            vendor = vendor_form.save(commit=False)
-            vendor.user = user
+            restaurant = restaurant_form.save(commit=False)
+            restaurant.user = user
 
             # getting the user profile from the user which got created via Signals
             user_profile = UserProfile.objects.get(user=user)
-            vendor.user_profile = user_profile
-            vendor.save()
+            restaurant.user_profile = user_profile
+            restaurant.save()
 
             # Send verification email
             send_email(request, user, 'VERIFICATION_EMAIL')
@@ -102,11 +103,11 @@ def register_restaurant(request):
             print(form.errors)
     else:
         form = UserForm()
-        vendor_form = VendorForm()
+        restaurant_form = RestaurantForm()
 
     context = {
         'form': form,
-        'vendor_form': vendor_form,
+        'restaurant_form': restaurant_form,
     }
     return render(request, 'accounts/registerrestaurant.html', context=context)
 
