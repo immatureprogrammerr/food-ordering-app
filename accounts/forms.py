@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, UserProfile
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -23,3 +23,24 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError(
                 'Password mismatched!'
             )
+
+class UserProfileForm(forms.ModelForm):
+    address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Start typing...', 'required': 'required'}))
+    profile_picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}))
+    cover_photo = forms.ImageField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}))
+
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    class Meta:
+        model = UserProfile
+        fields = [
+            'profile_picture',
+            'cover_photo',
+            'address',
+            'country',
+            'state',
+            'city',
+            'pincode',
+            'latitude',
+            'longitude',
+        ]
