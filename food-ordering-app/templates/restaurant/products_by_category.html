@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'includes/alerts.html' %}
+<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'includes/cover.html' %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							{% include 'includes/v_sidebar.html' %}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<p class="user-holder">
+									<h5 class="text-uppercase">Build your Food Menu</h5>
+                                    <h6>Category: <span class="text-uppercase text-success">{{category}}</span></h6>
+                                    {% if products %}
+                                    <div class="d-flex justify-content-end">
+                                        <a href="" class="btn btn-success float-right m-1"><i class="fa-solid fa-plus"></i>Add Food</a>
+                                        <a href="" class="btn btn-info float-right m-1"><i class="fa-solid fa-plus"></i>Add Category</a>
+                                    </div>
+                                    {% endif %}
+                                    {% if products %}
+                                    <table class="table table-hover table-borderless">
+                                      <tbody>
+                                        {% for product in products %}
+                                        <tr>
+                                          <td style="text-align:left">{{ forloop.counter }}</td>
+                                          <td><img src="{{product.image.url}}" alt="{{ product }}}" width="40"></td>
+                                          <td style="text-align:left;">
+                                              <a href="" style="text-decoration:none;">
+                                                  <p class="mb-0 font-weight-bold">{{ product }}</p>
+                                                  <small class="text-muted">{{ product.description }}</small>
+                                              </a>
+                                          </td>
+                                          <td>Edit Delete</td>
+                                        </tr>
+                                      {% endfor %}
+                                      </tbody>
+                                    </table>
+                                    {% else %}
+                                    <h5 class="text-center">
+                                        No products found for this category.
+                                    </h5>
+                                    <p class="text-center">
+                                        <a href="" class="btn btn-success float-right m-1"><i class="fa-solid fa-plus"></i>Add Food</a>
+                                    </p>
+                                    {% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+{% endblock %}

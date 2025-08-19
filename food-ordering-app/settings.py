@@ -1,3 +1,4 @@
+import os
 """
 Django settings for food-ordering-app project.
 
@@ -11,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
+import dj_database_url
 from decouple import config
 from django.conf.global_settings import AUTH_USER_MODEL
 
@@ -27,8 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['vidya-sahu-manipal.azurewebsites.net']
 
 # Application definition
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'restaurant',
+    'menu',
 ]
 
 MIDDLEWARE = [
@@ -81,15 +84,18 @@ WSGI_APPLICATION = 'food-ordering-app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT')
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT')
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 AUTH_USER_MODEL = 'accounts.User'

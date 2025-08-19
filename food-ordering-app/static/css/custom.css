@@ -20,7 +20,7 @@
     animation-duration: 5s;
     z-index: 999
 }
-input[type="file"].btn.btn-info {
+input[type="file"].btn.btn-info, .btn {
     padding: 2px 1.75em;
     font-size: 12px;
     cursor: pointer;
